@@ -5,7 +5,7 @@
 <div class="main-wrap">
   <div class="container">
 		{!! Form::open(['route' => 'daily_report.store']) !!}
-    	<div class="form-group form-size-small?">
+  　　<div class="form-group form-size-small?">
         {!! Form::input('text', 'reporting_time', date('Y/m/d'), ['readonly', 'class' => 'form-control']) !!}
         <span class="help-block"></span>
       </div>

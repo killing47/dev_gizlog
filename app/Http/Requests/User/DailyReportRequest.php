@@ -13,7 +13,7 @@ class DailyReportRequest extends FormRequest
      */
     public function authorize()
     {
-      return true;
+        return true;
     }
 
     /**
@@ -32,9 +32,8 @@ class DailyReportRequest extends FormRequest
     public function messages()
     {
         return [
-            'title.required' => '入力必須です。',
-            'content.required' => '入力必須項目です。'
+            'title.required' => '入力必須の項目です。',
+            'content.required' => '入力必須の項目です。'
          ];
     }
 }
-

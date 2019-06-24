@@ -27,7 +27,7 @@ class DailyReportController extends Controller
     public function index()
     {
         $daily_reports = $this->daily_report->getAll(Auth::id());
-        return view('user.daily_report.index',compact('daily_reports'));
+        return view('user.daily_report.index', compact('daily_reports'));
     }
 
     /**
@@ -37,7 +37,7 @@ class DailyReportController extends Controller
      */
     public function create()
     {
-        return view('user.daily_report.create',compact('user'));
+        return view('user.daily_report.create', compact('user'));
     }
 
     /**
@@ -109,8 +109,7 @@ class DailyReportController extends Controller
     public function search(Request $request)
     {
         $search = $request->input('search-month');
-        $daily_reports = $this->daily_report->where('reporting_time','like','%'.$search.'%')->get();
-        return view('user.daily_report.index',compact('daily_reports'));
+        $daily_reports = $this->daily_report->where('reporting_time', 'like', '%'.$search.'%')->get();
+        return view('user.daily_report.index', compact('daily_reports'));
     }
-
 }
