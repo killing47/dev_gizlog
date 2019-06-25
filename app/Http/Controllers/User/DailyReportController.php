@@ -20,7 +20,7 @@ class DailyReportController extends Controller
 
     /**
      * Display a listing of the resource.
-     *
+     * Display a listing of search resources.
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
