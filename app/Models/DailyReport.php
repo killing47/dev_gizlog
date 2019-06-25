@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class DailyReport extends Model
 {
     use SoftDeletes;
+
     protected $dates = ['reporting_time','deleted_at'];
 
     protected $fillable = [
