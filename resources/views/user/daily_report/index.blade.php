@@ -4,8 +4,8 @@
 <h2 class="brand-header">日報一覧</h2>
 <div class="main-wrap">
   <div class="btn-wrapper daily-report">
-    {!! Form::open(['route' => 'search']) !!}
-      {!! Form::input('month', 'search-month', date('Y/m/d'), ['class' => 'form-control']) !!}
+    {!! Form::open(['route' => 'daily_report.index', 'method' => 'get']) !!}
+      {!! Form::input('month', 'search-month', Carbon::now(), ['class' => 'form-control']) !!}
       {!! Form::button('<i class="fa fa-search"></i>', ['class' => 'btn btn-icon', 'type' => 'submit']) !!}
     {!! Form::close() !!}
     <a class="btn btn-icon" href="{{ route('daily_report.create') }}"><i class="fa fa-plus"></i></a>

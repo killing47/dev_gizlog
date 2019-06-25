@@ -5,7 +5,7 @@
 <div class="main-wrap">
   <div class="panel panel-success">
     <div class="panel-heading">
-      {{ date('Y/m/d(D)',strtotime($daily_report->reporting_time)) }} の日報
+      {{ $daily_report->reporting_time->format('Y-m-d') }} の日報
     </div>
     <div class="table-responsive">
       <table class="table table-striped table-bordered">

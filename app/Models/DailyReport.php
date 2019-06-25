@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class DailyReport extends Model
 {
     use SoftDeletes;
-    protected $dates = ['deleted_at'];
+    protected $dates = ['reporting_time','deleted_at'];
 
     protected $fillable = [
         'user_id',
@@ -17,8 +17,8 @@ class DailyReport extends Model
         'reporting_time'
     ];
 
-    public function getAll($id)
+    public function getUserAll($id)
     {
-        return $this->where('user_id', $id)->get();
+        return $this->where('user_id', $id)->orderBy('reporting_time', 'asc')->get();
     }
 }

@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\User\DailyReportRequest;
 use App\Models\DailyReport;
 use Illuminate\Http\Request;
-use Carbon;
 use Auth;
 
 class DailyReportController extends Controller
@@ -24,10 +23,16 @@ class DailyReportController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $daily_reports = $this->daily_report->getAll(Auth::id());
-        return view('user.daily_report.index', compact('daily_reports'));
+        $search = $request->input('search-month');
+        if (isset($search)) {
+            $daily_reports = $this->daily_report->where('reporting_time', 'like', '%'.$search.'%')->get();
+            return view('user.daily_report.index', compact('daily_reports'));
+        } else {
+            $daily_reports = $this->daily_report->getUserAll(Auth::id());
+            return view('user.daily_report.index', compact('daily_reports'));
+        }
     }
 
     /**
@@ -37,22 +42,21 @@ class DailyReportController extends Controller
      */
     public function create()
     {
-        return view('user.daily_report.create', compact('user'));
+        return view('user.daily_report.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  App\Http\Requests\User\DailyReportRequest  $request
      * @return \Illuminate\Http\Response
      */
     public function store(DailyReportRequest $request)
     {
         $input = $request->all();
-        $input['reporting_time'] = Carbon::parse($input['reporting_time']);
         $input['user_id'] = Auth::id();
         $this->daily_report->fill($input)->save();
-        return redirect()->to('daily_report');
+        return redirect()->route('daily_report.index');
     }
 
     /**
@@ -82,7 +86,7 @@ class DailyReportController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  App\Http\Requests\User\DailyReportRequest  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
@@ -91,7 +95,7 @@ class DailyReportController extends Controller
         $input = $request->all();
         $input['reporting_time'] = Carbon::parse($input['reporting_time']);
         $this->daily_report->find($id)->fill($input)->save();
-        return redirect()->to('daily_report');
+        return redirect()->route('daily_report.index');
     }
 
     /**
@@ -103,13 +107,6 @@ class DailyReportController extends Controller
     public function destroy($id)
     {
         $this->daily_report->find($id)->delete();
-        return redirect()->to('daily_report');
-    }
-
-    public function search(Request $request)
-    {
-        $search = $request->input('search-month');
-        $daily_reports = $this->daily_report->where('reporting_time', 'like', '%'.$search.'%')->get();
-        return view('user.daily_report.index', compact('daily_reports'));
+        return redirect()->route('daily_report.index');
     }
 }

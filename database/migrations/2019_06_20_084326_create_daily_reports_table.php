@@ -17,10 +17,10 @@ class CreateDailyReportsTable extends Migration
             $table->increments('id');
             $table->integer('user_id');
             $table->string('title');
-            $table->string('content');
-            $table->string('reporting_time');
-            $table->softDeletes('deleted_at');
+            $table->text('content');
+            $table->timestamp('reporting_time');
             $table->timestamps();
+            $table->softDeletes('deleted_at');
         });
     }
 
