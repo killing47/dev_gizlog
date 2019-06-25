@@ -27,10 +27,10 @@ class DailyReportController extends Controller
     {
         $search = $request->input('search-month');
         if (isset($search)) {
-            $daily_reports = $this->daily_report->where('reporting_time', 'like', '%'.$search.'%')->get();
+            $daily_reports = $this->daily_report->dailyReportSearch($search);
             return view('user.daily_report.index', compact('daily_reports'));
         } else {
-            $daily_reports = $this->daily_report->getUserAll(Auth::id());
+            $daily_reports = $this->daily_report->getUserInformation(Auth::id());
             return view('user.daily_report.index', compact('daily_reports'));
         }
     }
@@ -93,7 +93,6 @@ class DailyReportController extends Controller
     public function update(DailyReportRequest $request, $id)
     {
         $input = $request->all();
-        $input['reporting_time'] = Carbon::parse($input['reporting_time']);
         $this->daily_report->find($id)->fill($input)->save();
         return redirect()->route('daily_report.index');
     }

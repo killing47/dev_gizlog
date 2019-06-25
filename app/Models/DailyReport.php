@@ -17,8 +17,13 @@ class DailyReport extends Model
         'reporting_time'
     ];
 
-    public function getUserAll($id)
+    public function getUserInformation($id)
     {
-        return $this->where('user_id', $id)->orderBy('reporting_time', 'asc')->get();
+        return $this->where('user_id', $id)->orderBy('reporting_time', 'desc')->get();
+    }
+
+    public function dailyReportSearch($search)
+    {
+        return $this->where('reporting_time', 'like', '%'.$search.'%')->orderBy('reporting_time', 'desc')->get();
     }
 }
