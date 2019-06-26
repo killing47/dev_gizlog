@@ -23,7 +23,7 @@
       <tbody>
         @foreach ($daily_reports as $daily_report)
         <tr class="row">
-          <td class="col-xs-2">{{ $daily_report->reporting_time->format('m/d(D)')}}</td>
+          <td class="col-xs-2">{{ $daily_report->reporting_time->format('m/d(D)') }}</td>
           <td class="col-xs-3">{{ $daily_report->title }}</td>
           <td class="col-xs-5">{{ $daily_report->content }}</td>
           <td class="col-xs-2"><a class="btn" href="{{ route('daily_report.show', $daily_report->id) }}"><i class="fa fa-book"></i></a></td>
