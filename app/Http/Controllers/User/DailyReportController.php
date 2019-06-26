@@ -25,10 +25,10 @@ class DailyReportController extends Controller
      */
     public function index(Request $request)
     {
-        $search = $request->input('search-month');
+        $searchMonth = $request->input('search-month');
         $id = Auth::id();
-        if (isset($search)) {
-            $dailyReports = $this->dailyReport->dailyReportSearch($search, $id);
+        if (isset($searchMonth)) {
+            $dailyReports = $this->dailyReport->dailyReportSearch($searchMonth, $id);
         } else {
             $dailyReports = $this->dailyReport->getUserInformation($id);
         }
