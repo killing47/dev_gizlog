@@ -28,11 +28,10 @@ class DailyReportController extends Controller
         $search = $request->input('search-month');
         if (isset($search)) {
             $daily_reports = $this->daily_report->dailyReportSearch($search);
-            return view('user.daily_report.index', compact('daily_reports'));
         } else {
             $daily_reports = $this->daily_report->getUserInformation(Auth::id());
-            return view('user.daily_report.index', compact('daily_reports'));
         }
+        return view('user.daily_report.index', compact('daily_reports'));
     }
 
     /**
