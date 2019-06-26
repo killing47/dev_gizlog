@@ -10,7 +10,7 @@ use Auth;
 
 class DailyReportController extends Controller
 {
-    public $dailyReport;
+    protected $dailyReport;
 
     public function __construct(DailyReport $dailyReport)
     {
