@@ -24,7 +24,7 @@ class DailyReportRequest extends FormRequest
     public function rules()
     {
         return [
-            'title'   => 'required',
+            'title'   => 'required|max:250',
             'content' => 'required|max:1000'
         ];
     }
@@ -33,15 +33,16 @@ class DailyReportRequest extends FormRequest
     {
         return [
             'title' => 'Title',
-            'content' => 'Content'
+            'content' => 'Content',
+
         ];
     }
 
     public function messages()
     {
         return [
-            'required'    => ':attributeが入力必須の項目です。',
-            'content.max' => '1000文字以内でお願いします。'
+            'required' => ':attributeが入力必須の項目です。',
+            'max'      => ':max文字以内でお願いします。'
         ];
     }
 }
