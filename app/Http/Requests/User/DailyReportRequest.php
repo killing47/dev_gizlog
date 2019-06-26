@@ -24,17 +24,24 @@ class DailyReportRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required',
+            'title'   => 'required',
             'content' => 'required|max:1000'
+        ];
+    }
+
+    public function attributes()
+    {
+        return [
+            'title' => 'Title',
+            'content' => 'Content'
         ];
     }
 
     public function messages()
     {
         return [
-            'title.required' => '入力必須の項目です。',
-            'content.required' => '入力必須の項目です。',
+            'required'    => ':attributeが入力必須の項目です。',
             'content.max' => '1000文字以内でお願いします。'
-         ];
+        ];
     }
 }
