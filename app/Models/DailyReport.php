@@ -23,8 +23,8 @@ class DailyReport extends Model
         return $this->where('user_id', $id)->orderBy('reporting_time', 'desc')->get();
     }
 
-    public function dailyReportSearch($search)
+    public function dailyReportSearch($search, $id)
     {
-        return $this->where('reporting_time', 'like', '%'.$search.'%')->orderBy('reporting_time', 'desc')->get();
+        return $this->where('reporting_time', 'like', '%'.$search.'%')->where('user_id', $id)->orderBy('reporting_time', 'desc')->get();
     }
 }
