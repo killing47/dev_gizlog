@@ -27,7 +27,9 @@ class DailyReportController extends Controller
     {
         $searchMonth = $request->input('search-month');
         $id = Auth::id();
+       
         if (isset($searchMonth)) {
+            dd($searchMonth);
             $dailyReports = $this->dailyReport->dailyReportSearch($searchMonth, $id);
         } else {
             $dailyReports = $this->dailyReport->getUserInformation($id);
