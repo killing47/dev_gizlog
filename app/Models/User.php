@@ -68,9 +68,8 @@ class User extends Authenticatable
 
     public function restoreDeletedUser($userInfoId)
     {
-        DB::transaction(function() use($userInfoId) {
+        DB::transaction(function () use ($userInfoId) {
             $this->withTrashed()->where('user_info_id', $userInfoId)->update(['deleted_at' => null]);
         });
     }
 }
-

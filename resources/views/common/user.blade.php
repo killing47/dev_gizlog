@@ -49,7 +49,7 @@
               <li>
                 <a href="{{ route('logout') }}"
                     onclick="event.preventDefault();
-                             document.getElementById('logout-form').submit();">
+                    document.getElementById('logout-form').submit();">
                     Logout
                 </a>
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -75,7 +75,7 @@
             <a href="{{ route('report.index') }}"><i class="fa fa-pencil-square-o">日報</i></a>
           </li>
           <li>
-            <a href=""><i class="fa fa-comments-o">質問掲示板</i></a>
+            <a href="{{ route('question.index') }}"><i class="fa fa-comments-o">質問掲示板</i></a>
           </li>
         </ul>
       </div>
