@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Question;
+use App\Models\TagCategory;
 use Auth;
 
 class QuestionController extends Controller
@@ -28,7 +29,7 @@ class QuestionController extends Controller
     {
         $id = Auth::id();
         $tagCategory = $request->input('tag_category_id');
-        $searchWord = $request->input('search_word');
+        $searchWord  = $request->input('search_word');
         if (isset($tagCategory)  &&  $tagCategory !== '0') {
             $questions = $this->question->tagCategorySearch($tagCategory, $id);
         } elseif (isset($searchWord)) {
@@ -44,9 +45,10 @@ class QuestionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(TagCategory $tagCategory)
     {
-        return view('user.question.create');
+        $tagCategorys = $tagCategory->get();
+        return view('user.question.create', compact('tagCategorys'));
     }
 
     /**
@@ -57,7 +59,10 @@ class QuestionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $input = $request->all();
+        $input['user_id'] = Auth::id();
+        $this->question->fill($input)->save();
+        return redirect()->route('question.index');
     }
 
     /**
