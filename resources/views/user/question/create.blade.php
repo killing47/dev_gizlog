@@ -17,7 +17,7 @@
         {!! Form::textarea('content', null, ['class' => 'form-control', 'placeholder' => 'Please write down your question here...', 'cols' => '50', 'rows' => '10']) !!}
         <span class="help-block"></span>
       </div>
-      <input name="confirm" class="btn btn-success pull-right" type="submit" value="create">
+      {!! Form::input('submit', 'confirm', 'create', ['class' => 'btn btn-success pull-right']) !!}
       {!! Form::close() !!}
   </div>
 </div>
