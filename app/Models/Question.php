@@ -42,13 +42,13 @@ class Question extends Model
         return $this->where('user_id', $id)->orderBy('created_at', 'desc')->get();
     }
 
-    public function tagSearchCategory($tagCategory)
+    public function searchTagCategory($tagCategory)
     {
         return $this->where('tag_category_id', $tagCategory)
                     ->orderBy('created_at', 'desc')->get();
     }
 
-    public function wordSearch($searchWord)
+    public function searchWord($searchWord)
     {
         return $this->where('title', 'like', '%'.$searchWord.'%')
                     ->orderBy('created_at', 'desc')->get();
