@@ -42,15 +42,15 @@ class Question extends Model
         return $this->where('user_id', $id)->orderBy('created_at', 'desc')->get();
     }
 
-    public function tagCategorySearch($tagCategory, $id)
+    public function tagCategorySearch($tagCategory)
     {
         return $this->where('tag_category_id', $tagCategory)
-                    ->where('user_id', $id)->orderBy('created_at', 'desc')->get();
+                    ->orderBy('created_at', 'desc')->get();
     }
 
-    public function wordSearch($searchWord, $id)
+    public function wordSearch($searchWord)
     {
         return $this->where('title', 'like', '%'.$searchWord.'%')
-                    ->where('user_id', $id)->orderBy('created_at', 'desc')->get();
+                    ->orderBy('created_at', 'desc')->get();
     }
 }

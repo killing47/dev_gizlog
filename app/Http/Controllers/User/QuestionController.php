@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\User\QuestionsRequest;
 use App\Http\Controllers\Controller;
 use App\Models\Question;
 use App\Models\TagCategory;
@@ -27,15 +28,14 @@ class QuestionController extends Controller
      */
     public function index(Request $request)
     {
-        $id = Auth::id();
         $tagCategory = $request->input('tag_category_id');
         $searchWord  = $request->input('search_word');
         if (isset($tagCategory)  &&  $tagCategory !== '0') {
-            $questions = $this->question->tagCategorySearch($tagCategory, $id);
+            $questions = $this->question->tagCategorySearch($tagCategory);
         } elseif (isset($searchWord)) {
-            $questions = $this->question->wordSearch($searchWord, $id);
+            $questions = $this->question->wordSearch($searchWord);
         } else {
-            $questions = $this->question->getUserInformation($id);
+            $questions = $this->question->get();
         }
         return view('user.question.index', compact('questions'));
     }
@@ -43,6 +43,7 @@ class QuestionController extends Controller
     /**
      * Show the form for creating a new resource.
      *
+     * @param  App\Models\TagCategory  $tagCategory
      * @return \Illuminate\Http\Response
      */
     public function create(TagCategory $tagCategory)
@@ -68,7 +69,6 @@ class QuestionController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
@@ -81,12 +81,20 @@ class QuestionController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
+     * @param  App\Models\TagCategory  $tagCategory
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id, TagCategory $tagCategory)
     {
-        //
+        $question = $this->question->find($id);
+        $tagCategorys = $tagCategory->get();
+        foreach ($tagCategorys as $tagCategory) {
+            if ($question->tagCategory->name !== $tagCategory->name) {
+                $tagCategorysSelectArray[] =  $tagCategory;
+            }
+        }
+        return view('user.question.edit', compact('question', 'tagCategorysSelectArray'));
     }
 
     /**
@@ -98,7 +106,9 @@ class QuestionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $input = $request->all();
+        $this->question->find($id)->fill($input)->save();
+        return redirect()->route('question.mypage');
     }
 
     /**
@@ -109,11 +119,19 @@ class QuestionController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->question->find($id)->delete();
+        return redirect()->route('question.mypage');
     }
 
-    public function mypage()
+    public function mypage(Request $request)
     {
-        return view('user.question.mypage');
+        $id = Auth::id();
+        $questions = $this->question->getUserInformation($id);
+        return view('user.question.mypage', compact('questions'));
+    }
+
+    public function confirm(QuestionsRequest $request)
+    {
+        return view('user.question.confirm', compact('request'));
     }
 }
