@@ -36,7 +36,7 @@ class QuestionController extends Controller
         } elseif (isset($searchWord)) {
             $questions = $this->question->searchWord($searchWord);
         } else {
-            $questions = $this->question->get();
+            $questions = $this->question->all();
         }
         return view('user.question.index', compact('questions'));
     }
@@ -49,7 +49,7 @@ class QuestionController extends Controller
      */
     public function create(TagCategory $tagCategory)
     {
-        $tagCategorys = $tagCategory->get();
+        $tagCategorys = $tagCategory->all();
         return view('user.question.create', compact('tagCategorys'));
     }
 
@@ -89,7 +89,7 @@ class QuestionController extends Controller
     public function edit($id, TagCategory $tagCategory)
     {
         $question = $this->question->find($id);
-        $tagCategorys = $tagCategory->get();
+        $tagCategorys = $tagCategory->all();
         foreach ($tagCategorys as $tagCategory) {
             if ($question->tagCategory->name !== $tagCategory->name) {
                 $tagCategorysSelectArray[] =  $tagCategory;
