@@ -22,7 +22,7 @@ class Question extends Model
         'content',
     ];
 
-    public function comment()
+    public function comments()
     {
         return $this->hasMany('App\Models\Comment');
     }
