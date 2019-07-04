@@ -37,7 +37,7 @@ class Question extends Model
         return $this->belongsTo('App\Models\User');
     }
 
-    public function getUserInformation($id)
+    public function getUserQuestion($id)
     {
         return $this->where('user_id', $id)->orderBy('created_at', 'desc')->get();
     }
