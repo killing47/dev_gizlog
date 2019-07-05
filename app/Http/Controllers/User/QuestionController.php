@@ -93,12 +93,7 @@ class QuestionController extends Controller
     {
         $question = $this->question->find($id);
         $tagCategorys = $this->tagCategory->all();
-        foreach ($tagCategorys as $tagCategory) {
-            if ($question->tagCategory->name !== $tagCategory->name) {
-                $tagCategorysSelectArray[] =  $tagCategory;
-            }
-        }
-        return view('user.question.edit', compact('question', 'tagCategorysSelectArray'));
+        return view('user.question.edit', compact('question', 'tagCategorys'));
     }
 
     /**
