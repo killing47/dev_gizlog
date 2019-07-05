@@ -12,11 +12,13 @@ use Auth;
 class QuestionController extends Controller
 {
     protected $question;
+    protected $tagCategory;
 
-    public function __construct(Question $question)
+    public function __construct(Question $question, TagCategory $tagCategory)
     {
         $this->middleware('auth');
         $this->question = $question;
+        $this->tagCategory = $tagCategory;
     }
 
 
@@ -29,8 +31,9 @@ class QuestionController extends Controller
     public function index(Request $request)
     {
         // dd($request->all());
-        $tagCategory = $request->input('tag_category_id');
-        $searchWord  = $request->input('search_word');
+        $tagCategory  = $request->input('tag_category_id');
+        $searchWord   = $request->input('search_word');
+        $tagCategorys = $this->tagCategory->all();
         if (isset($tagCategory)  &&  $tagCategory !== '0') {
             $questions = $this->question->searchTagCategory($tagCategory);
         } elseif (isset($searchWord)) {
@@ -38,7 +41,7 @@ class QuestionController extends Controller
         } else {
             $questions = $this->question->all();
         }
-        return view('user.question.index', compact('questions'));
+        return view('user.question.index', compact('questions', 'tagCategorys'));
     }
 
     /**
@@ -47,9 +50,9 @@ class QuestionController extends Controller
      * @param  App\Models\TagCategory  $tagCategory
      * @return \Illuminate\Http\Response
      */
-    public function create(TagCategory $tagCategory)
+    public function create()
     {
-        $tagCategorys = $tagCategory->all();
+        $tagCategorys = $this->tagCategory->all();
         return view('user.question.create', compact('tagCategorys'));
     }
 
@@ -86,10 +89,10 @@ class QuestionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id, TagCategory $tagCategory)
+    public function edit($id)
     {
         $question = $this->question->find($id);
-        $tagCategorys = $tagCategory->all();
+        $tagCategorys = $this->tagCategory->all();
         foreach ($tagCategorys as $tagCategory) {
             if ($question->tagCategory->name !== $tagCategory->name) {
                 $tagCategorysSelectArray[] =  $tagCategory;
