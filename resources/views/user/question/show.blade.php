@@ -25,7 +25,7 @@
     </div>
   </div>
   
-  @foreach ($question->comment as $comment)
+  @foreach ($question->comments as $comment)
     <div class="comment-list">
         <div class="comment-wrap">
           <div class="comment-title">
