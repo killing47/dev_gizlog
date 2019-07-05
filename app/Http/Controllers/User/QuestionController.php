@@ -30,11 +30,10 @@ class QuestionController extends Controller
      */
     public function index(Request $request)
     {
-        // dd($request->all());
         $tagCategory  = $request->input('tag_category_id');
         $searchWord   = $request->input('search_word');
         $tagCategorys = $this->tagCategory->all();
-        if (isset($tagCategory)  &&  $tagCategory !== '0') {
+        if (isset($tagCategory)) {
             $questions = $this->question->searchTagCategory($tagCategory);
         } elseif (isset($searchWord)) {
             $questions = $this->question->searchWord($searchWord);

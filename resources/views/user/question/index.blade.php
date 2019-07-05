@@ -16,7 +16,7 @@
     </div>
     <div class="category-wrap">
     　
-      <div class="btn all" id="0">all</div>
+      <div class="btn all" id="">all</div>
       @foreach($tagCategorys as $tagCategory)
       <div class="btn {{ $tagCategory->name }}" id="{{ $tagCategory->id }}">{{ $tagCategory->name }}</div>
       @endforeach
