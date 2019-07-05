@@ -13,7 +13,7 @@ class DailyReportRequest extends FormRequest
      */
     public function authorize()
     {
-      return true;
+        return true;
     }
   
     /**
@@ -42,4 +42,3 @@ class DailyReportRequest extends FormRequest
         ];
     }
 }
-

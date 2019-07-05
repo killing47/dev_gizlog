@@ -135,6 +135,8 @@ class QuestionController extends Controller
 
     public function confirm(QuestionsRequest $request)
     {
-        return view('user.question.confirm', compact('request'));
+        $input = $request->all();
+        $tagCategory   = $this->tagCategory->find($input['tag_category_id']);
+        return view('user.question.confirm', compact('request', 'tagCategory'));
     }
 }
