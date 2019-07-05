@@ -15,11 +15,11 @@
       </a>
     </div>
     <div class="category-wrap">
+    　
       <div class="btn all" id="0">all</div>
-      <div class="btn front" id="1">FRONT</div>
-      <div class="btn back" id="2">BACK</div>
-      <div class="btn infra" id="3">INFRA</div>
-      <div class="btn others" id="4">OTHERS</div>
+      @foreach($tagCategorys as $tagCategory)
+      <div class="btn {{ $tagCategory->name }}" id="{{ $tagCategory->id }}">{{ $tagCategory->name }}</div>
+      @endforeach
       {!! Form::input('hidden', 'tag_category_id', null, ['id' => 'category-val']) !!}
     </div>
   {!! Form::close() !!}
