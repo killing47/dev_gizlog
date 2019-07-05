@@ -39,7 +39,7 @@ Route::group(['prefix' => '/', 'user.', 'namespace' => 'User'], function () {
     Route::get('attendance/modify', ['as' => 'attendance.modify', 'uses' => 'AttendanceController@showModifyForm']);
     Route::post('attendance/modify', ['as' => 'attendance.modify.store', 'uses' => 'AttendanceController@storeModifyRequest']);
     Route::get('attendance/mypage', ['as' => 'attendance.mypage', 'uses' => 'AttendanceController@showMypage']);
-    Route::get('question/mypage', 'QuestionController@mypage')->name('question.mypage');
+    Route::get('question/showMypage', 'QuestionController@showMypage')->name('question.showMypage');
     Route::post('question/confirm', 'QuestionController@confirm')->name('question.confirm');
 
     Route::resource('report', DailyReportController::class);

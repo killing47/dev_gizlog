@@ -127,7 +127,7 @@ class QuestionController extends Controller
         return redirect()->route('question.mypage');
     }
 
-    public function mypage(Request $request)
+    public function showMypage(Request $request)
     {
         $id = Auth::id();
         $questions = $this->question->getUserQuestion($id);
