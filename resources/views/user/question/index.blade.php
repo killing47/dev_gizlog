@@ -40,7 +40,7 @@
           <td class="col-xs-1"><img src="{{ $question->user->avatar }}" class="avatar-img"></td>
           <td class="col-xs-2">{{ $question->tagCategory->name }}</td>
           <td class="col-xs-6">{{ $question->title }}</td>
-          <td class="col-xs-1"><span class="point-color">{{ $question->comment->count() }}</span></td>
+          <td class="col-xs-1"><span class="point-color">{{ $question->comments->count() }}</span></td>
           <td class="col-xs-2">
             <a class="btn btn-success" href="{{ route('question.show', $question->id) }}">
               <i class="fa fa-comments-o" aria-hidden="true"></i>
