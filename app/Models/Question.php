@@ -53,4 +53,11 @@ class Question extends Model
         return $this->where('title', 'like', '%'.$searchWord.'%')
                     ->orderBy('created_at', 'desc')->get();
     }
+
+    public function searchCategoryWord($tagCategory, $searchWord)
+    {
+        return $this->where('tag_category_id', $tagCategory)
+                    ->where('title', 'like', '%'.$searchWord.'%')
+                    ->orderby('created_at', 'desc')->get();
+    }
 }

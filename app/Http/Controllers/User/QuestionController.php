@@ -33,7 +33,9 @@ class QuestionController extends Controller
         $tagCategory  = $request->input('tag_category_id');
         $searchWord   = $request->input('search_word');
         $tagCategorys = $this->tagCategory->all();
-        if (isset($tagCategory)) {
+        if (isset($tagCategory) && isset($searchWord)) {
+            $questions = $this->question->searchCategoryWord($tagCategory, $searchWord);
+        } elseif (isset($tagCategory)) {
             $questions = $this->question->searchTagCategory($tagCategory);
         } elseif (isset($searchWord)) {
             $questions = $this->question->searchWord($searchWord);
