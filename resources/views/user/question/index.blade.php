@@ -20,7 +20,11 @@
       @foreach($tagCategorys as $tagCategory)
       <div class="btn {{ $tagCategory->name }}" id="{{ $tagCategory->id }}">{{ $tagCategory->name }}</div>
       @endforeach
-      {!! Form::input('hidden', 'tag_category_id', null, ['id' => 'category-val']) !!}
+      @if($_GET)
+        {!! Form::input('hidden', 'tag_category_id', $_GET['tag_category_id'], ['id' => 'category-val']) !!}
+      @else
+        {!! Form::input('hidden', 'tag_category_id', null, ['id' => 'category-val']) !!}
+      @endif
     </div>
   {!! Form::close() !!}
   <div class="content-wrapper table-responsive">
