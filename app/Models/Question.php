@@ -42,9 +42,9 @@ class Question extends Model
         return $this->where('user_id', $id)->orderBy('created_at', 'desc')->get();
     }
 
-    public function searchTagCategory($tagCategory)
+    public function searchTagCategory($tagCategoryId)
     {
-        return $this->where('tag_category_id', $tagCategory)
+        return $this->where('tag_category_id', $tagCategoryId)
                     ->orderBy('created_at', 'desc')->get();
     }
 
@@ -54,9 +54,9 @@ class Question extends Model
                     ->orderBy('created_at', 'desc')->get();
     }
 
-    public function searchCategoryWord($tagCategory, $searchWord)
+    public function searchCategoryWord($tagCategoryId, $searchWord)
     {
-        return $this->where('tag_category_id', $tagCategory)
+        return $this->where('tag_category_id', $tagCategoryId)
                     ->where('title', 'like', '%'.$searchWord.'%')
                     ->orderby('created_at', 'desc')->get();
     }
