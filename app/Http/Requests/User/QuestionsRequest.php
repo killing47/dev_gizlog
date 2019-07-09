@@ -29,21 +29,4 @@ class QuestionsRequest extends FormRequest
             'tag_category_id' => 'required'
         ];
     }
-
-    public function attributes()
-    {
-        return [
-            'title' => 'Title',
-            'content' => 'Content',
-            'tag_category_id' => 'Category'
-        ];
-    }
-
-    public function messages()
-    {
-        return [
-            'required' => ':attributeは必須の項目です。',
-            'max'      => ':max文字以内でお願いします。'
-        ];
-    }
 }
