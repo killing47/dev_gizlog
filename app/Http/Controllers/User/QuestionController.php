@@ -21,7 +21,6 @@ class QuestionController extends Controller
         $this->tagCategory = $tagCategory;
     }
 
-
     /**
      * Display a listing of the resource.
      *
@@ -32,7 +31,7 @@ class QuestionController extends Controller
     {
         $tagCategoryId  = $request->input('tag_category_id');
         $searchWord   = $request->input('search_word');
-        $tagCategorys = $this->tagCategory->all();
+        $tagCategories = $this->tagCategory->all();
         if (isset($tagCategoryId) && isset($searchWord)) {
             $questions = $this->question->searchCategoryWord($tagCategoryId, $searchWord);
         } elseif (isset($tagCategoryId)) {
@@ -40,9 +39,9 @@ class QuestionController extends Controller
         } elseif (isset($searchWord)) {
             $questions = $this->question->searchWord($searchWord);
         } else {
-            $questions = $this->question->all();
+            $questions = $this->question->with('user', 'tagCategory', 'comments')->get();
         }
-        return view('user.question.index', compact('questions', 'tagCategorys'));
+        return view('user.question.index', compact('questions', 'tagCategories', 'request'));
     }
 
     /**
@@ -53,8 +52,9 @@ class QuestionController extends Controller
      */
     public function create()
     {
-        $tagCategorys = $this->tagCategory->all();
-        return view('user.question.create', compact('tagCategorys'));
+        $tagCategories = $this->tagCategory->getTagCategories();
+        $tagCategoriesByNameId =  $tagCategories->pluck('name', 'id')->prepend('Select category', '');
+        return view('user.question.create', compact('tagCategoriesByNameId'));
     }
 
     /**
@@ -93,8 +93,9 @@ class QuestionController extends Controller
     public function edit($id)
     {
         $question = $this->question->find($id);
-        $tagCategorys = $this->tagCategory->all();
-        return view('user.question.edit', compact('question', 'tagCategorys'));
+        $tagCategories = $this->tagCategory->getTagCategories();
+        $tagCategoriesByNameId =  $tagCategories->pluck('name', 'id')->prepend('Select category', '');
+        return view('user.question.edit', compact('question', 'tagCategoriesByNameId'));
     }
 
     /**
@@ -108,7 +109,7 @@ class QuestionController extends Controller
     {
         $input = $request->all();
         $this->question->find($id)->fill($input)->save();
-        return redirect()->route('question.mypage');
+        return redirect()->route('question.showMypage');
     }
 
     /**
@@ -120,19 +121,19 @@ class QuestionController extends Controller
     public function destroy($id)
     {
         $this->question->find($id)->delete();
-        return redirect()->route('question.mypage');
+        return redirect()->route('question.showMypage');
     }
 
     public function showMypage(Request $request)
     {
-        $questions = $this->question->getUserQuestion(Auth::id());
+        $questions = $this->question-> getQuestionByUserId(Auth::id());
         return view('user.question.mypage', compact('questions'));
     }
 
     public function confirm(QuestionsRequest $request)
     {
         $input = $request->all();
-        $tagCategory   = $this->tagCategory->find($input['tag_category_id']);
+        $tagCategory = $this->tagCategory->find($input['tag_category_id']);
         return view('user.question.confirm', compact('request', 'tagCategory'));
     }
 }

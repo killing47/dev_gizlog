@@ -37,27 +37,35 @@ class Question extends Model
         return $this->belongsTo('App\Models\User');
     }
 
-    public function getUserQuestion($id)
+    public function getQuestionByUserId($id)
     {
-        return $this->where('user_id', $id)->orderBy('created_at', 'desc')->get();
+        return $this->where('user_id', $id)
+                    ->orderBy('created_at', 'desc')
+                    ->get();
     }
 
     public function searchTagCategory($tagCategoryId)
     {
         return $this->where('tag_category_id', $tagCategoryId)
-                    ->orderBy('created_at', 'desc')->get();
+                    ->orderBy('created_at', 'desc')
+                    ->with('user', 'tagCategory', 'comments')
+                    ->get();
     }
 
     public function searchWord($searchWord)
     {
         return $this->where('title', 'like', '%'.$searchWord.'%')
-                    ->orderBy('created_at', 'desc')->get();
+                    ->orderBy('created_at', 'desc')
+                    ->with('user', 'tagCategory', 'comments')
+                    ->get();
     }
 
     public function searchCategoryWord($tagCategoryId, $searchWord)
     {
         return $this->where('tag_category_id', $tagCategoryId)
                     ->where('title', 'like', '%'.$searchWord.'%')
-                    ->orderby('created_at', 'desc')->get();
+                    ->orderBy('created_at', 'desc')
+                    ->with('user', 'tagCategory', 'comments')
+                    ->get();
     }
 }

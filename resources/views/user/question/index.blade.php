@@ -17,14 +17,10 @@
     <div class="category-wrap">
     　
       <div class="btn all" id="">all</div>
-      @foreach($tagCategorys as $tagCategory)
+      @foreach($tagCategories as $tagCategory)
       <div class="btn {{ $tagCategory->name }}" id="{{ $tagCategory->id }}">{{ $tagCategory->name }}</div>
       @endforeach
-      @if($_GET)
-        {!! Form::input('hidden', 'tag_category_id', $_GET['tag_category_id'], ['id' => 'category-val']) !!}
-      @else
-        {!! Form::input('hidden', 'tag_category_id', null, ['id' => 'category-val']) !!}
-      @endif
+      {!! Form::input('hidden', 'tag_category_id', $request['tag_category_id'], ['id' => 'category-val']) !!}
     </div>
   {!! Form::close() !!}
   <div class="content-wrapper table-responsive">

@@ -23,10 +23,10 @@
     </div>
   </div>
   <div class="btn-bottom-wrapper">
-    @if (!$request->id)
-      {!! Form::open(['route' => 'question.store']) !!}
-    @else
+    @if (isset($request->id))
       {!! Form::open(['route' => ['question.update', $request->id], 'method' => 'PUT']) !!}
+    @else
+      {!! Form::open(['route' => 'question.store']) !!}
     @endif
       {!! Form::input('hidden', 'title', $request->title) !!}
       {!! Form::input('hidden', 'content', $request->content) !!}
