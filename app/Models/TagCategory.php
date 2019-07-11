@@ -13,5 +13,8 @@ class TagCategory extends Model
     protected $table = 'tag_categories';
     protected $dates = ['deleted_at'];
 
+    public function getTagCategories()
+    {
+        return $this->all();
+    }
 }
-
