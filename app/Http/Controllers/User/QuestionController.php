@@ -29,15 +29,11 @@ class QuestionController extends Controller
      */
     public function index(Request $request)
     {
-        $tagCategoryId  = $request->input('tag_category_id');
-        $searchWord   = $request->input('search_word');
+        $tagCategoryId = $request->input('tag_category_id');
+        $searchWord = $request->input('search_word');
         $tagCategories = $this->tagCategory->all();
-        if (isset($tagCategoryId) && isset($searchWord)) {
+        if (isset($tagCategoryId) || isset($searchWord)) {
             $questions = $this->question->searchCategoryWord($tagCategoryId, $searchWord);
-        } elseif (isset($tagCategoryId)) {
-            $questions = $this->question->searchTagCategory($tagCategoryId);
-        } elseif (isset($searchWord)) {
-            $questions = $this->question->searchWord($searchWord);
         } else {
             $questions = $this->question->with('user', 'tagCategory', 'comments')->get();
         }
@@ -53,7 +49,7 @@ class QuestionController extends Controller
     public function create()
     {
         $tagCategories = $this->tagCategory->getTagCategories();
-        $tagCategoriesByNameId =  $tagCategories->pluck('name', 'id')->prepend('Select category', '');
+        $tagCategoriesByNameId = $tagCategories->pluck('name', 'id')->prepend('Select category', '');
         return view('user.question.create', compact('tagCategoriesByNameId'));
     }
 
@@ -94,7 +90,7 @@ class QuestionController extends Controller
     {
         $question = $this->question->find($id);
         $tagCategories = $this->tagCategory->getTagCategories();
-        $tagCategoriesByNameId =  $tagCategories->pluck('name', 'id')->prepend('Select category', '');
+        $tagCategoriesByNameId = $tagCategories->pluck('name', 'id')->prepend('Select category', '');
         return view('user.question.edit', compact('question', 'tagCategoriesByNameId'));
     }
 
@@ -126,7 +122,7 @@ class QuestionController extends Controller
 
     public function showMypage(Request $request)
     {
-        $questions = $this->question-> getQuestionByUserId(Auth::id());
+        $questions = $this->question->getQuestionByUserId(Auth::id());
         return view('user.question.mypage', compact('questions'));
     }
 

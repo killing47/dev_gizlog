@@ -41,31 +41,26 @@ class Question extends Model
     {
         return $this->where('user_id', $id)
                     ->orderBy('created_at', 'desc')
-                    ->get();
-    }
-
-    public function searchTagCategory($tagCategoryId)
-    {
-        return $this->where('tag_category_id', $tagCategoryId)
-                    ->orderBy('created_at', 'desc')
-                    ->with('user', 'tagCategory', 'comments')
-                    ->get();
-    }
-
-    public function searchWord($searchWord)
-    {
-        return $this->where('title', 'like', '%'.$searchWord.'%')
-                    ->orderBy('created_at', 'desc')
                     ->with('user', 'tagCategory', 'comments')
                     ->get();
     }
 
     public function searchCategoryWord($tagCategoryId, $searchWord)
     {
-        return $this->where('tag_category_id', $tagCategoryId)
-                    ->where('title', 'like', '%'.$searchWord.'%')
+        return $this->category($tagCategoryId)
+                    ->title($searchWord)
                     ->orderBy('created_at', 'desc')
                     ->with('user', 'tagCategory', 'comments')
                     ->get();
+    }
+
+    public function scopeCategory($query, $tagCategoryId)
+    {
+        return $query->where('tag_category_id', $tagCategoryId);
+    }
+
+    public function scopeTitle($query, $searchWord)
+    {
+        return $query->where('title', 'like', '%'.$searchWord.'%');
     }
 }
