@@ -12,103 +12,15 @@ class QuestionTableSeeder extends Seeder
     public function run()
     {
         DB::table('questions')->truncate();
-        DB::table('questions')->insert([
-            [
-                'user_id'         => 1,
-                'tag_category_id' => 1,
-                'title'           => 'test_title1',
-                'content'         => 'test_content1'
-            ],
-            [
-                'user_id'         => 1,
-                'tag_category_id' => 2,
-                'title'           => 'test_title1',
-                'content'         => 'test_content1'
-            ],
-            [
-                'user_id'         => 1,
-                'tag_category_id' => 3,
-                'title'           => 'test_title1',
-                'content'         => 'test_content1'
-            ],
-            [
-                'user_id'         => 1,
-                'tag_category_id' => 4,
-                'title'           => 'test_title1',
-                'content'         => 'test_content1'
-            ],
-            [
-                'user_id'         => 2,
-                'tag_category_id' => 1,
-                'title'           => 'test_title1',
-                'content'         => 'test_content1'
-            ],
-            [
-                'user_id'         => 2,
-                'tag_category_id' => 2,
-                'title'           => 'test_title1',
-                'content'         => 'test_content1'
-            ],
-            [
-                'user_id'         => 2,
-                'tag_category_id' => 3,
-                'title'           => 'test_title1',
-                'content'         => 'test_content1'
-            ],
-            [
-                'user_id'         => 2,
-                'tag_category_id' => 4,
-                'title'           => 'test_title1',
-                'content'         => 'test_content1'
-            ],
-            [
-                'user_id'         => 3,
-                'tag_category_id' => 1,
-                'title'           => 'test_title1',
-                'content'         => 'test_content1'
-            ],
-            [
-                'user_id'         => 3,
-                'tag_category_id' => 2,
-                'title'           => 'test_title1',
-                'content'         => 'test_content1'
-            ],
-            [
-                'user_id'         => 3,
-                'tag_category_id' => 3,
-                'title'           => 'test_title1',
-                'content'         => 'test_content1'
-            ],
-            [
-                'user_id'         => 3,
-                'tag_category_id' => 4,
-                'title'           => 'test_title1',
-                'content'         => 'test_content1'
-            ],
-            [
-                'user_id'         => 4,
-                'tag_category_id' => 1,
-                'title'           => 'test_title1',
-                'content'         => 'test_content1'
-            ],
-            [
-                'user_id'         => 4,
-                'tag_category_id' => 2,
-                'title'           => 'test_title2',
-                'content'         => 'test_content2'
-            ],
-            [
-                'user_id'         => 4,
-                'tag_category_id' => 3,
-                'title'           => 'test_title3',
-                'content'         => 'test_content3'
-            ],
-            [
-                'user_id'         => 4,
-                'tag_category_id' => 4,
-                'title'           => 'test_title4',
-                'content'         => 'test_content4'
-            ],
-        ]);
+        for ($i = 1; $i < 5; $i++) {
+            for ($int = 1; $int < 5; $int++) {
+                DB::table('questions')->insert([
+                    'user_id' => $i,
+                    'tag_category_id' => $int,
+                    'title' => 'test_title'.$int,
+                    'content' => 'test_content'.$int
+                ]);
+            }
+        }
     }
 }

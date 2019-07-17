@@ -12,87 +12,14 @@ class CommentTableSeeder extends Seeder
     public function run()
     {
         DB::table('comments')->truncate();
-        DB::table('comments')->insert([
-            [
-                'user_id'     => 1,
-                'question_id' => 1,
-                'comment'     => 'test_comment1'
-            ],
-            [
-                'user_id'     => 1,
-                'question_id' => 2,
-                'comment'     => 'test_comment1'
-            ],
-            [
-                'user_id'     => 1,
-                'question_id' => 3,
-                'comment'     => 'test_comment1'
-            ],
-            [
-                'user_id'     => 1,
-                'question_id' => 4,
-                'comment'     => 'test_comment1'
-            ],
-            [
-                'user_id'     => 2,
-                'question_id' => 1,
-                'comment'     => 'test_comment1'
-            ],
-            [
-                'user_id'     => 2,
-                'question_id' => 2,
-                'comment'     => 'test_comment1'
-            ],
-            [
-                'user_id'     => 2,
-                'question_id' => 3,
-                'comment'     => 'test_comment1'
-            ],
-            [
-                'user_id'     => 2,
-                'question_id' => 4,
-                'comment'     => 'test_comment1'
-            ],
-            [
-                'user_id'     => 3,
-                'question_id' => 1,
-                'comment'     => 'test_comment1'
-            ],
-            [
-                'user_id'     => 3,
-                'question_id' => 2,
-                'comment'     => 'test_comment1'
-            ],
-            [
-                'user_id'     => 3,
-                'question_id' => 3,
-                'comment'     => 'test_comment1'
-            ],
-            [
-                'user_id'     => 3,
-                'question_id' => 4,
-                'comment'     => 'test_comment1'
-            ],
-            [
-                'user_id'     => 4,
-                'question_id' => 1,
-                'comment'     => 'test_comment1'
-            ],
-            [
-                'user_id'     => 4,
-                'question_id' => 2,
-                'comment'     => 'test_comment2'
-            ],
-            [
-                'user_id'     => 4,
-                'question_id' => 3,
-                'comment'     => 'test_comment3'
-            ],
-            [
-                'user_id'     => 4,
-                'question_id' => 4,
-                'comment'     => 'test_comment4'
-            ],
-        ]);
+        for ($i = 1; $i < 5; $i++) {
+            for ($int = 1; $int < 5; $int++) {
+                DB::table('comments')->insert([
+                    'user_id' => $i,
+                    'question_id' => $int,
+                    'comment' => 'test_title'.$int
+                ]);
+            }
+        }
     }
 }
