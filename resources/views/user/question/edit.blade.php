@@ -6,7 +6,7 @@
 <div class="main-wrap">
   <div class="container">
     {!! Form::open(['route' => 'question.confirm']) !!}
-      {!! Form::input('hidden','id',$question->id) !!}
+      {!! Form::input('hidden', 'id', $question->id) !!}
       <div class="form-group">
       {!! Form::select('tag_category_id', $tagCategoriesByNameId, $question->tagCategory->id, ['class' => 'form-control selectpicker form-size-small', 'id' => "pref_id"]) !!}
         <span class="help-block"></span>
