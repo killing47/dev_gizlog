@@ -49,8 +49,8 @@ class QuestionController extends Controller
     public function create()
     {
         $tagCategories = $this->tagCategory->getTagCategories();
-        $tagCategoriesByNameId = $tagCategories->pluck('name', 'id')->prepend('Select category', '');
-        return view('user.question.create', compact('tagCategoriesByNameId'));
+        $tagCategoriesAndDefaultCategory = $tagCategories->pluck('name', 'id')->prepend(config('const.defaultCategory'), '');
+        return view('user.question.create', compact('tagCategoriesAndDefaultCategory'));
     }
 
     /**
