@@ -39,7 +39,7 @@ class Question extends Model
 
     public function getQuestionByUserId($id)
     {
-        return $this->where('user_id', $id)
+        return $this->userId($id)
                     ->orderBy('created_at', 'desc')
                     ->with('user', 'tagCategory', 'comments')
                     ->get();
@@ -48,10 +48,15 @@ class Question extends Model
     public function searchCategoryWord($tagCategoryId, $searchWord)
     {
         return $this->category($tagCategoryId)
-                    ->title($searchWord)
+                    ->SearcnWord($searchWord)
                     ->orderBy('created_at', 'desc')
                     ->with('user', 'tagCategory', 'comments')
                     ->get();
+    }
+
+    public function scopeUserId($query, $id)
+    {
+        return $query->where('user_id', $id);
     }
 
     public function scopeCategory($query, $tagCategoryId)
@@ -59,7 +64,7 @@ class Question extends Model
         return $query->where('tag_category_id', $tagCategoryId);
     }
 
-    public function scopeTitle($query, $searchWord)
+    public function scopeSearcnWord($query, $searchWord)
     {
         return $query->where('title', 'like', '%'.$searchWord.'%');
     }
