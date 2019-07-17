@@ -47,11 +47,23 @@ class Question extends Model
 
     public function searchCategoryWord($tagCategoryId, $searchWord)
     {
-        return $this->category($tagCategoryId)
-                    ->SearcnWord($searchWord)
-                    ->orderBy('created_at', 'desc')
-                    ->with('user', 'tagCategory', 'comments')
-                    ->get();
+        if (isset($tagCategoryId) && isset($searchWord)) {
+            return $this->category($tagCategoryId)
+                        ->searchWord($searchWord)
+                        ->orderBy('created_at', 'desc')
+                        ->with('user', 'tagCategory', 'comments')
+                        ->get();
+        } elseif (isset($tagCategoryId)) {
+            return $this->category($tagCategoryId)
+                        ->orderBy('created_at', 'desc')
+                        ->with('user', 'tagCategory', 'comments')
+                        ->get();
+        } elseif (isset($searchWord)) {
+            return $this->searchWord($searchWord)
+                        ->orderBy('created_at', 'desc')
+                        ->with('user', 'tagCategory', 'comments')
+                        ->get();
+        }
     }
 
     public function scopeUserId($query, $id)
@@ -64,7 +76,7 @@ class Question extends Model
         return $query->where('tag_category_id', $tagCategoryId);
     }
 
-    public function scopeSearcnWord($query, $searchWord)
+    public function scopeSearchWord($query, $searchWord)
     {
         return $query->where('title', 'like', '%'.$searchWord.'%');
     }
