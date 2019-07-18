@@ -39,30 +39,21 @@ class Question extends Model
 
     public function getQuestionByUserId($id)
     {
-        return $this->userId($id)
-                    ->orderBy('created_at', 'desc')
-                    ->with('user', 'tagCategory', 'comments')
-                    ->get();
+        return $this->userId($id)->orderBy('created_at', 'desc')
+            ->with('user', 'tagCategory', 'comments')->get();
     }
 
     public function searchCategoryWord($tagCategoryId, $searchWord)
     {
         if (isset($tagCategoryId) && isset($searchWord)) {
-            return $this->category($tagCategoryId)
-                        ->searchWord($searchWord)
-                        ->orderBy('created_at', 'desc')
-                        ->with('user', 'tagCategory', 'comments')
-                        ->get();
+            return $this->category($tagCategoryId)->searchWord($searchWord)
+                ->orderBy('created_at', 'desc')->with('user', 'tagCategory', 'comments')->get();
         } elseif (isset($tagCategoryId)) {
-            return $this->category($tagCategoryId)
-                        ->orderBy('created_at', 'desc')
-                        ->with('user', 'tagCategory', 'comments')
-                        ->get();
+            return $thisiss->category($tagCategoryId)->orderBy('created_at', 'desc')
+                ->with('user', 'tagCategory', 'comments')->get();
         } elseif (isset($searchWord)) {
-            return $this->searchWord($searchWord)
-                        ->orderBy('created_at', 'desc')
-                        ->with('user', 'tagCategory', 'comments')
-                        ->get();
+            return $this->searchWord($searchWord)->orderBy('created_at', 'desc')
+                ->with('user', 'tagCategory', 'comments')->get();
         }
     }
 
