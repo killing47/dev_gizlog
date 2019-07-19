@@ -13,7 +13,11 @@ class TagCategory extends Model
     protected $table = 'tag_categories';
     protected $dates = ['deleted_at'];
 
-    // TagCategoriesの全レコード取得
+    /**
+     * TagCategoriesの全レコードを取得
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function getTagCategories()
     {
         return $this->all();
