@@ -11,15 +11,6 @@ class CommentTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('comments')->truncate();
-        for ($i = 1; $i < 5; $i++) {
-            for ($int = 1; $int < 5; $int++) {
-                DB::table('comments')->insert([
-                    'user_id' => $i,
-                    'question_id' => $int,
-                    'comment' => 'test_title'.$int
-                ]);
-            }
-        }
+        factory(App\Models\Comment::class, 100)->create();
     }
 }
