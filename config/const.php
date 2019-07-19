@@ -1,4 +1,4 @@
 <?php
 return array(
-    'defaultCategory'=> 'Select category'
+    'default_category' => 'Select category'
 );
