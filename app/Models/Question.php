@@ -50,7 +50,7 @@ class Question extends Model
             ->get();
     }
 
-    public function getByEagerLoading()
+    public function getAllQuestions()
     {
         return $this->with('user', 'tagCategory', 'comments')->get();
     }
