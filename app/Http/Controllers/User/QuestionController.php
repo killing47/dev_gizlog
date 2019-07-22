@@ -35,7 +35,7 @@ class QuestionController extends Controller
         if (isset($tagCategoryId) || isset($searchWord)) {
             $questions = $this->question->searchCategoryWord($tagCategoryId, $searchWord);
         } else {
-            $questions = $this->question->with('user', 'tagCategory', 'comments')->get();
+            $questions = $this->question->getByEagerLoading();
         }
         return view('user.question.index', compact('questions', 'tagCategories', 'request'));
     }
@@ -49,7 +49,8 @@ class QuestionController extends Controller
     public function create()
     {
         $tagCategories = $this->tagCategory->getTagCategories();
-        $tagCategoriesAndDefaultCategory = $tagCategories->pluck('name', 'id')->prepend(config('const.defaultCategory'), '');
+        $tagCategoriesAndDefaultCategory = $tagCategories->pluck('name', 'id')
+            ->prepend(config('const.default_category'), '');
         return view('user.question.create', compact('tagCategoriesAndDefaultCategory'));
     }
 
